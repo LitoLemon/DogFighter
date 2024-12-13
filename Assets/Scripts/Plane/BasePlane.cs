@@ -9,10 +9,10 @@ public class BasePlane : MonoBehaviour
     public float mass = 400f;
     public float responsiveness = 10f;
 
-    private float throttle;
-    private float roll;
-    private float pitch;
-    private float yaw;
+    protected float throttle;
+    protected float roll;
+    protected float pitch;
+    protected float yaw;
 
     private float responsiveModifier
     {
@@ -22,29 +22,12 @@ public class BasePlane : MonoBehaviour
         }
     }
 
-    private Rigidbody rb;
+    protected Rigidbody rb;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         rb.mass = mass;
-    }
-
-    private void HandleInputs()
-    {
-        roll = Input.GetAxis("Roll");
-        pitch = Input.GetAxis("Pitch");
-        yaw = Input.GetAxis("Yaw");
-
-        //keep throttle betweeen 0 and 100
-        if (Input.GetKey(KeyCode.Space)) throttle += throttleIncrement;
-        else if (Input.GetKey(KeyCode.LeftControl)) throttle -= throttleIncrement;
-        throttle = Mathf.Clamp(throttle, 0f, 100f);
-    }
-
-    private void Update()
-    {
-        HandleInputs();
     }
 
     private void FixedUpdate()
