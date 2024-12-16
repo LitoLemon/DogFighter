@@ -30,11 +30,11 @@ public class BasePlane : MonoBehaviour
         rb.mass = mass;
     }
 
-    private void FixedUpdate()
+    protected virtual void FixedUpdate()
     {
-        rb.AddForce(transform.forward * maxThrust * throttle);
-        rb.AddTorque(transform.up * yaw * responsiveModifier * 0.25f);
-        rb.AddTorque(transform.right * pitch * responsiveModifier * 0.5f);
-        rb.AddTorque(-transform.forward * roll * responsiveModifier * 0.1f);
+        rb.AddForce(maxThrust * throttle * transform.forward);
+        rb.AddTorque(0.25f * responsiveModifier * yaw * transform.up);
+        rb.AddTorque(0.5f * pitch * responsiveModifier * transform.right);
+        rb.AddTorque(0.1f * responsiveModifier * roll * -transform.forward);
     }
 }
